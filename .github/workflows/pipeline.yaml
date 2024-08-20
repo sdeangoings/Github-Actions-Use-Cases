@@ -47,9 +47,10 @@ jobs:
           push: true
           tags: ${{ env.ACRNAME }}.azurecr.io/website/website:${{ github.run_number }}
 
-      - name: Register subscription for Microsoft Insights
+      - name: Register subscription for Microsoft namespaces
         run: |  
           az provider register --namespace Microsoft.Insights
+          az provider register --namespace Microsoft.ContainerService
 
       - name: Create AKS Cluster
         run: |

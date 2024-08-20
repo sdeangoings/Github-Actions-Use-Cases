@@ -28,11 +28,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Az RG Create
-        run: az group create --name ${{ vars.RGNAME }} -l eastus
-      - name: Register subscription for Microsoft namespaces
-        run: |
-          az provider register --namespace Microsoft.Insights
-          az provider register --namespace Microsoft.ContainerService          
+        run: az group create --name ${{ vars.RGNAME }} -l eastus      
       - name: AZ AKS Create
         run: az aks create -n ${{ vars.AKSNAME }} -g ${{ vars.RGNAME }} --generate-ssh-keys -l eastus --enable-managed-identity
       # Manually Create a Service Principal and configure Github Actions to use sp to connect to Subscription.

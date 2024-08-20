@@ -34,7 +34,7 @@ jobs:
           az provider register --namespace Microsoft.Insights
           az provider register --namespace Microsoft.ContainerService          
       - name: AZ AKS Create
-        run: az aks create -n ${{ vars.AKSNAME }} -g ${{ vars.RGNAME }} --generate-ssh-keys -l eastus --service-principal ${{ secrets.clientId }} --client-secret ${{ secrets.clientSecret }}
+        run: az aks create -n ${{ vars.AKSNAME }} -g ${{ vars.RGNAME }} --generate-ssh-keys -l eastus 
       # Manually Create a Service Principal and configure Github Actions to use sp to connect to Subscription.
       - name: Az ACR Create
         run: az acr create -n ${{ vars.ACRNAME }} -g ${{ vars.RGNAME }} -l eastus --sku Basic

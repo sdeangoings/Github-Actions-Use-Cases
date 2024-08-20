@@ -47,6 +47,10 @@ jobs:
           push: true
           tags: ${{ env.ACRNAME }}.azurecr.io/website/website:${{ github.run_number }}
 
+      - name: Register subscription for Microsoft Insights
+        run: |  
+          az provider register --namespace Microsoft.Insights
+
       - name: Create AKS Cluster
         run: |
           az aks create --resource-group $RGNAME --name $AKSNAME --node-count 1 --enable-addons monitoring --generate-ssh-keys

@@ -46,6 +46,10 @@ jobs:
           context: ./Azure
           push: true
           tags: ${{ env.ACRNAME }}.azurecr.io/website/website:${{ github.run_number }}
+
+      - name: Create AKS Cluster
+        run: |
+          az aks create --resource-group myResourceGroup --name $AKSNAME --node-count 1 --enable-addons monitoring --generate-ssh-keys
           
   Deploy:
     runs-on: ubuntu-latest

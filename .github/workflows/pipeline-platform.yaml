@@ -28,15 +28,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Az RG Create
-        run: az group create --name $RGNAME -l eastus
+        run: az group create --name ${{ vars.RGNAME }} -l eastus
       - name: Register subscription for Microsoft namespaces
         run: |
           az provider register --namespace Microsoft.Insights
           az provider register --namespace Microsoft.ContainerService          
       - name: AZ AKS Create
-        run: az aks create -n $AKSNAME -g $RGNAME --generate-ssh-keys -l eastus --service-principal ${{ secrets.clientId }} --client-secret ${{ secrets.clientSecret }}
+        run: az aks create -n ${{ vars.AKSNAME }} -g ${{ vars.RGNAME }} --generate-ssh-keys -l eastus --service-principal ${{ secrets.clientId }} --client-secret ${{ secrets.clientSecret }}
       # Manually Create a Service Principal and configure Github Actions to use sp to connect to Subscription.
       - name: Az ACR Create
-        run: az acr create -n $ACRNAME -g $RGNAME -l eastus --sku Basic
+        run: az acr create -n ${{ vars.ACRNAME }} -g ${{ vars.RGNAME }} -l eastus --sku Basic
       - name: Az ACR attach to AKS
-        run: az aks update -n $AKSNAME -g $RGNAME --attach-acr $ACRNAME
+        run: az aks update -n ${{ vars.AKSNAME }} -g ${{ vars.RGNAME }} --attach-acr ${{ vars.ACRNAME }}
